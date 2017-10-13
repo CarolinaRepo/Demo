@@ -1,0 +1,26 @@
+
+user@ubuntu:~/LTIB/rpm/BUILD/u-boot-2009.08$ make env ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi-
+
+will generate fw_printenv at user@ubuntu:~/LTIB/rpm/BUILD/u-boot-2009.08/tools/env$
+
+execute the following command to generate fw_setenv in same location path above where fw_printenv is:
+
+ln -sf fw_printenv fw_setenv
+
+
+copy them to ../nfs/sbin and/or ../rootfs/sbin
+
+in same path above need to copy fw_env.config to  ../nfs/etc/ and/or ../rootfs/etc
+
+with the configuration below:
+
+# Configuration file for fw_(printenv/saveenv) utility.
+# Up to two entries are valid, in this case the redundant
+# environment sector is assumed present.
+# Notice, that the "Number of sectors" is ignored on NOR.
+
+# MTD device name	Device offset	Env. size	Flash sector size	Number of sectors
+/dev/mtd1		0x0000		0xc00		0x20000
+
+while running target fw_print and fw_sentenv can be executed to read/write uboot enviromental variables...
+
